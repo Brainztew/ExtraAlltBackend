@@ -1,0 +1,71 @@
+package com.AskABot.AskABot.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.AskABot.AskABot.model.User;
+import com.AskABot.AskABot.service.UserService;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+import java.security.Key;
+import java.util.Date;
+
+@CrossOrigin(origins = "*")
+@RequestMapping("/user")
+@RestController
+public class UserController {
+
+    @Value("${jwtSecret}")
+    private String jwtSecret;
+
+    @Value("${jwt.expiration}")
+    private int jwtExpirationMs;
+
+    @Autowired  
+    UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @PostMapping("/registerUser")
+    public User registerUser(@RequestBody User user) {
+        return userService.registerUser(user);
+    }
+    
+    @PostMapping("/loginUser")
+    public ResponseEntity<?> loginUser(@RequestBody User user) {
+        try {
+            String userId = userService.getUserIdByEmail(user.getEmail());
+            if (userId == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
+            }
+
+            User dbUser = userService.loginUser(user);
+            if (dbUser != null) {
+                Key key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
+                String token = Jwts.builder()
+                        .setSubject(userId.toString())
+                        .setIssuedAt(new Date())
+                        .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
+                        .signWith(key, SignatureAlgorithm.HS512)
+                        .compact();
+                return ResponseEntity.ok(token);
+            }
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password.");
+    }
+}
+    
+
