@@ -18,6 +18,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RequestMapping("/user")
@@ -59,7 +61,10 @@ public class UserController {
                         .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
                         .signWith(key, SignatureAlgorithm.HS512)
                         .compact();
-                return ResponseEntity.ok(token);
+                    Map<String, String> response = new HashMap<>();
+                        response.put("token", token);
+                        response.put("userId", userId);
+                return ResponseEntity.ok(response);
             }
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
