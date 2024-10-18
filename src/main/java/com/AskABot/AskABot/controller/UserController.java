@@ -40,8 +40,14 @@ public class UserController {
     }
 
     @PostMapping("/registerUser")
-    public User registerUser(@RequestBody User user) {
-        return userService.registerUser(user);
+    public ResponseEntity<?> registerUser(@RequestBody User user) {
+        if (user.getEmail() == null || user.getEmail().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email cannot be null");
+        } else if (user.getPassword() == null || user.getPassword().length() < 6) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Password must be at least 6 characters long");
+        }
+        User registeredUser = userService.registerUser(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(registeredUser);
     }
     
     @PostMapping("/loginUser")

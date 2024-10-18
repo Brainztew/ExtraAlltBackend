@@ -21,23 +21,26 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     @Value("${jwtSecret}")
     private String jwtSecret;
 
+    @SuppressWarnings("null")
     @Override
-    protected void doFilterInternal(@SuppressWarnings("null") HttpServletRequest request,
-            @SuppressWarnings("null") HttpServletResponse response, @SuppressWarnings("null") FilterChain filterChain)
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response, 
+                                    FilterChain filterChain)
             throws ServletException, IOException {
 
         String token = extractTokenFromRequest(request);
 
         if (token != null) {
             try {
-
                 @SuppressWarnings("deprecation")
-                Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
-                User userId = claims.get("id", User.class);
+                Claims claims = Jwts.parser()
+                                    .setSigningKey(jwtSecret.getBytes())
+                                    .parseClaimsJws(token)
+                                    .getBody();
+                String userId = claims.getSubject(); // Assuming the user ID is stored in the subject
 
-                request.setAttribute("id", userId);
+                request.setAttribute("userId", userId);
             } catch (Exception e) {
-
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 return;
             }
