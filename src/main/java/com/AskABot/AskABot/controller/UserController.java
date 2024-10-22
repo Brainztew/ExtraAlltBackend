@@ -70,6 +70,7 @@ public class UserController {
                     Map<String, String> response = new HashMap<>();
                         response.put("token", token);
                         response.put("userId", userId);
+                        response.put("userEmail", user.getEmail());
                 return ResponseEntity.ok(response);
             }
         } catch (IllegalArgumentException e) {

@@ -2,10 +2,11 @@ package com.AskABot.AskABot.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "messages")
+@Document(collection = "messagesWebsocket")
 public class MessageWebbsocket {
     private String sender;
     private String content;
+    private String topicId;
 
     public MessageWebbsocket() {
     }
@@ -26,5 +27,13 @@ public class MessageWebbsocket {
         this.content = content;
     }
 
+    public String getTopicId() {
+        return topicId;
+    }
+
+    public void setTopicId(String topicId) {
+        this.topicId = topicId;
+    }
+    
     
 }
