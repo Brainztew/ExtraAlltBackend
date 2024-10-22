@@ -56,6 +56,9 @@ public class TopicService {
             throw new IllegalArgumentException("Topic not found");
         } 
         User user = userRepository.findById(userId).orElse(null);
+        if (topic.getUsersInTopic().contains(user)) {
+            System.out.println("User already in topic: " + user.getEmail());
+        }
         topic.getUsersInTopic().add(user);
         topicRepository.save(topic);
     }
@@ -84,6 +87,14 @@ public class TopicService {
 
     public Topic getTopicById(String topicId) {
         return topicRepository.findById(topicId).orElse(null);
+    }
+
+    public Iterable<String> getMessagesInTopic(String topicId) {
+        Topic topic = topicRepository.findById(topicId).orElse(null);
+        if (topic == null) {
+            throw new IllegalArgumentException("Topic not found");
+        }
+        return topic.getMessages();
     }
     
 }

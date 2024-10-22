@@ -70,5 +70,10 @@ public class TopicController {
         topicService.leaveTopic(userId, topicId);
         return new ResponseEntity<>("User left topic", HttpStatus.OK);
     }
+
+    @GetMapping("/getMessagesInTopic")
+    public Iterable<String> getMessagesInTopic(@RequestParam String topicId) {
+        return topicService.getMessagesInTopic(topicId);
+    }
     
 }

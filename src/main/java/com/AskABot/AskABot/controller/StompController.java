@@ -26,7 +26,7 @@ public class StompController {
 
     @MessageMapping("/welcome/{topicId}")
     public void sendWelcomeMessage(@DestinationVariable String topicId, MessageWebbsocket message) {
-        topicService.addMessageToTopic(message);
+        System.out.println("WELCOME");
         messagingTemplate.convertAndSend("/topic/welcome/" + topicId, message);
     }
 
