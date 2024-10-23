@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.AskABot.AskABot.model.MessageWebbsocket;
-
+import com.AskABot.AskABot.model.Topic;
 import com.AskABot.AskABot.service.TopicService;
 
 @RestController
@@ -35,6 +35,13 @@ public class StompController {
     public MessageWebbsocket sendMessage(@DestinationVariable String topicId, MessageWebbsocket message) {
         topicService.addMessageToTopic(message);
         return message;
+    }
+
+    @MessageMapping("update/{topicId}")
+    @SendTo("/topic/update/{topicId}")
+    public void updateTopic(@DestinationVariable String topicId) {
+        Topic topic = topicService.getTopicById(topicId);
+        messagingTemplate.convertAndSend("/topic/update/" + topicId, topic);
     }
 
 }

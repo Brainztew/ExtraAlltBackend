@@ -3,6 +3,7 @@ package com.AskABot.AskABot.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,9 @@ public class TopicController {
     @Autowired
     TopicService topicService;
 
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
+
     public TopicController(TopicService topicService) {
         this.topicService = topicService;
     }
@@ -50,6 +54,11 @@ public class TopicController {
         return topicService.getTopics();
     }
 
+    @GetMapping("/getUsersInTopic")
+    public Iterable<String> getUsersInTopic(@RequestParam String topicId) {
+        return topicService.getUsersInTopic(topicId);
+    }
+
     @DeleteMapping("/deleteTopic")
     public void deleteTopic(@RequestParam String topicId, @RequestParam String userId2, HttpServletRequest request) {
         String userId = (String) request.getAttribute("userId");
@@ -62,12 +71,14 @@ public class TopicController {
     @PutMapping("/joinTopic")
     public ResponseEntity<String> joinTopic(@RequestParam String userId, @RequestParam String topicId) {
         topicService.joinTopic(userId, topicId);
+        messagingTemplate.convertAndSend("/topic/update/" + topicId, topicService.getTopicById(topicId));
         return new ResponseEntity<>("User joined topic", HttpStatus.OK);
     }
 
     @PutMapping("/leaveTopic")
     public ResponseEntity<String> leaveTopic(@RequestParam String userId, @RequestParam String topicId) {
         topicService.leaveTopic(userId, topicId);
+        messagingTemplate.convertAndSend("/topic/update/" + topicId, topicService.getTopicById(topicId));
         return new ResponseEntity<>("User left topic", HttpStatus.OK);
     }
 
@@ -75,5 +86,7 @@ public class TopicController {
     public Iterable<String> getMessagesInTopic(@RequestParam String topicId) {
         return topicService.getMessagesInTopic(topicId);
     }
+
+    
     
 }
