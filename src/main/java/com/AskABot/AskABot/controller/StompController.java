@@ -44,4 +44,10 @@ public class StompController {
         messagingTemplate.convertAndSend("/topic/update/" + topicId, topic);
     }
 
+    @MessageMapping("/aianswer/{topicId}")
+    @SendTo("/topic/aianswer/{topicId}")
+    public void getAiAnswer(@DestinationVariable String topicId, MessageWebbsocket message) {
+        messagingTemplate.convertAndSend("/topic/aianswer/" + topicId, message);
+    }
+
 }

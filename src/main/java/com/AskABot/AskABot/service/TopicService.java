@@ -1,5 +1,7 @@
 package com.AskABot.AskABot.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.Iterator;
@@ -15,6 +17,12 @@ public class TopicService {
 
     private TopicRepository topicRepository;
     private UserRepository userRepository;
+
+    @Autowired
+    private AiAnswerService AiAnswerService;
+
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
 
     public TopicService(TopicRepository topicRepository, UserRepository userRepository) {
         this.topicRepository = topicRepository;
@@ -123,6 +131,16 @@ public class TopicService {
             }
         };
         return emails;
+    }
+
+    public void addAiMessageToTopic(String topicId, String content) {
+        Topic topic = topicRepository.findById(topicId).orElse(null);
+        if (topic == null) {
+            throw new IllegalArgumentException("Topic not found");
+        }
+        String answer = AiAnswerService.getAiAnswer(content, topic);
+        topic.getMessages().add("AI bot: " + answer);
+        topicRepository.save(topic);
     }
 
     
