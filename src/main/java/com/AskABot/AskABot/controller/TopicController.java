@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/topic")
-@CrossOrigin(origins = "http://localhost:5173" + "https://coral-app-ei5fb.ondigitalocean.app" )
+@CrossOrigin(origins = {"http://localhost:5173", "https://coral-app-ei5fb.ondigitalocean.app"})
 public class TopicController {
 
     @Autowired
