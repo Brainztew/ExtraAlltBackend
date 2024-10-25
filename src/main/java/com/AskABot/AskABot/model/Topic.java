@@ -2,6 +2,8 @@ package com.AskABot.AskABot.model;
 
 import java.util.List;
 
+import java.util.ArrayList;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,7 +14,8 @@ public class Topic {
     private String topicName;
     private String createdByUser;
     private Boolean aiActive;
-    private List<MessageWebbsocket> messages;
+    private List<String> messages = new ArrayList<>();
+    private List<User> usersInTopic;
 
     public Topic() {
     }
@@ -49,13 +52,21 @@ public class Topic {
         this.aiActive = aiActive;
     }
 
-    public List<MessageWebbsocket> getMessages() {
+    public List<User> getUsersInTopic() {
+        return usersInTopic;
+    }
+
+    public void setUsersInTopic(List<User> usersInTopic) {
+        this.usersInTopic = usersInTopic;
+    }
+
+    public List<String> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<MessageWebbsocket> messages) {
+    public void setMessages(List<String> messages) {
         this.messages = messages;
     }
-
+    
     
 }

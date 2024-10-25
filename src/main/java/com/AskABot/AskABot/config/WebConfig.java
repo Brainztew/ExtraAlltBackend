@@ -3,7 +3,6 @@ package com.AskABot.AskABot.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 
@@ -17,7 +16,9 @@ public class WebConfig {
     public FilterRegistrationBean<DelegatingFilterProxy> jwtFilter() {
         FilterRegistrationBean<DelegatingFilterProxy> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(new DelegatingFilterProxy("jwtTokenFilter"));
-        registrationBean.addUrlPatterns("/topic/createTopic", "/topic/deleteTopic"); // Add paths that require JWT authentication
+        registrationBean.addUrlPatterns("/topic/createTopic", "/topic/deleteTopic"); 
         return registrationBean;
     }
+
+
 }

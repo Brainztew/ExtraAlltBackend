@@ -1,6 +1,7 @@
 package com.AskABot.AskABot;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -78,4 +79,65 @@ public class UserTest {
         assertEquals(user.getEmail(), loggedInUser.getEmail());
         assertEquals(user.getPassword(), loggedInUser.getPassword());
     }
+
+        @Test
+    void testEquals() {
+        User user1 = new User();
+        user1.setUserId("123");
+        user1.setEmail("user1@example.com");
+        user1.setPassword("password1");
+
+        User user2 = new User();
+        user2.setUserId("123");
+        user2.setEmail("user2@example.com");
+        user2.setPassword("password2");
+
+        assertEquals(user1, user2);
+    }
+
+    @Test
+    void testNotEquals() {
+        User user1 = new User();
+        user1.setUserId("123");
+        user1.setEmail("user1@example.com");
+        user1.setPassword("password1");
+
+        User user2 = new User();
+        user2.setUserId("456");
+        user2.setEmail("user2@example.com");
+        user2.setPassword("password2");
+
+        assertNotEquals(user1, user2);
+    }
+
+    @Test
+    void testHashCode() {
+        User user1 = new User();
+        user1.setUserId("123");
+        user1.setEmail("user1@example.com");
+        user1.setPassword("password1");
+
+        User user2 = new User();
+        user2.setUserId("123");
+        user2.setEmail("user2@example.com");
+        user2.setPassword("password2");
+
+        assertEquals(user1.hashCode(), user2.hashCode());
+    }
+
+    @Test
+    void testHashCodeNotEquals() {
+        User user1 = new User();
+        user1.setUserId("123");
+        user1.setEmail("user1@example.com");
+        user1.setPassword("password1");
+
+        User user2 = new User();
+        user2.setUserId("456");
+        user2.setEmail("user2@example.com");
+        user2.setPassword("password2");
+
+        assertNotEquals(user1.hashCode(), user2.hashCode());
+    }
+
 }

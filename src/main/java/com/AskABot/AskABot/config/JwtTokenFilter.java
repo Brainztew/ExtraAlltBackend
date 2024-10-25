@@ -6,8 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.AskABot.AskABot.model.User;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
@@ -37,7 +35,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                                     .setSigningKey(jwtSecret.getBytes())
                                     .parseClaimsJws(token)
                                     .getBody();
-                String userId = claims.getSubject(); // Assuming the user ID is stored in the subject
+                String userId = claims.getSubject();
 
                 request.setAttribute("userId", userId);
             } catch (Exception e) {
