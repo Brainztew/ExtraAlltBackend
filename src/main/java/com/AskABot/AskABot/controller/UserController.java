@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:5173" + "https://coral-app-ei5fb.ondigitalocean.app" )
 @RequestMapping("/user")
 @RestController
 public class UserController {
