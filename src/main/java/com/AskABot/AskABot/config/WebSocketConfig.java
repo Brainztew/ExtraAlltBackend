@@ -9,7 +9,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 
 @Configuration
 @EnableWebSocketMessageBroker
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:5173", "https://coral-app-ei5fb.ondigitalocean.app"})
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
@@ -21,10 +21,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws-endpoint")
-                 .setAllowedOrigins("http://localhost:5173")  
-
-
-
+                .setAllowedOrigins("http://localhost:5173", "https://coral-app-ei5fb.ondigitalocean.app")  
                 .withSockJS();
     }
 
