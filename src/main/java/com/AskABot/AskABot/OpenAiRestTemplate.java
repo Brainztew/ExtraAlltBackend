@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-@CrossOrigin ("*")
+@CrossOrigin(origins = "http://localhost:5173" + "https://coral-app-ei5fb.ondigitalocean.app" )
 public class OpenAiRestTemplate {
     
     @Value("${openai.api.key}")

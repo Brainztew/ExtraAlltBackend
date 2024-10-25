@@ -15,7 +15,7 @@ import com.AskABot.AskABot.service.TopicService;
 
 @RestController
 @RequestMapping("/api/Topic")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173" + "https://coral-app-ei5fb.ondigitalocean.app" )
 public class StompController {
 
     @Autowired
