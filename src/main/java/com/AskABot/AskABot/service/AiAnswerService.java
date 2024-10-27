@@ -33,7 +33,7 @@ public class AiAnswerService {
         if (chatResponse == null || chatResponse.getChoices() == null || chatResponse.getChoices().isEmpty() || chatResponse.getChoices().get(0).getMessage() == null) {
             throw new RuntimeException("Invalid response from AI service");
         }
-        messagingTemplate.convertAndSend("/topic/aianswer/" + topic.getTopicId(), chatResponse.getChoices().get(0).getMessage());
+  /*       messagingTemplate.convertAndSend("/topic/aianswer/" + topic.getTopicId(), chatResponse.getChoices().get(0).getMessage()); */
         String message = chatResponse.getChoices().get(0).getMessage().getContent();
         return message;   
     }
