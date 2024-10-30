@@ -1,6 +1,5 @@
 package com.AskABot.AskABot.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,6 @@ public class AiAnswerService {
     private final RestTemplate restTemplate;
     private final SimpMessagingTemplate messagingTemplate;
 
-    @Autowired
     public AiAnswerService(RestTemplate restTemplate, SimpMessagingTemplate messagingTemplate) {
         this.restTemplate = restTemplate;
         this.messagingTemplate = messagingTemplate;
@@ -33,9 +31,11 @@ public class AiAnswerService {
         if (chatResponse == null || chatResponse.getChoices() == null || chatResponse.getChoices().isEmpty() || chatResponse.getChoices().get(0).getMessage() == null) {
             throw new RuntimeException("Invalid response from AI service");
         }
-  /*       messagingTemplate.convertAndSend("/topic/aianswer/" + topic.getTopicId(), chatResponse.getChoices().get(0).getMessage()); */
+        /* messagingTemplate.convertAndSend("/topic/aianswer/" + topic.getTopicId(), chatResponse.getChoices().get(0).getMessage());  */
         String message = chatResponse.getChoices().get(0).getMessage().getContent();
         return message;   
     }
+
+    
     
 }

@@ -51,8 +51,8 @@ public class StripeController {
         SessionCreateParams params = SessionCreateParams.builder()
                 .addAllLineItem(Arrays.asList(lineItems))
                 .setMode(SessionCreateParams.Mode.PAYMENT)
-                .setSuccessUrl("http://localhost:5173/?page=SuccessPage")
-                .setCancelUrl("http://localhost:5173/?page=CancelPage")
+                .setSuccessUrl("https://coral-app-ei5fb.ondigitalocean.app/?page=SuccessPage")
+                .setCancelUrl("https://coral-app-ei5fb.ondigitalocean.app/?page=CancelPage")
                 .setShippingAddressCollection(
                     SessionCreateParams.ShippingAddressCollection.builder()
                         .addAllowedCountry(SessionCreateParams.ShippingAddressCollection.AllowedCountry.SE)

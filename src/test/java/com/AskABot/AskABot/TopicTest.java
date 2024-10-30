@@ -1,5 +1,6 @@
 package com.AskABot.AskABot;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -38,7 +39,10 @@ public class TopicTest {
         topic.setTopicName("Test Topic");
         topic.setCreatedByUser("123");
 
+        topicService.createTopic(topic);
+
        when(topicRepository.save(any(Topic.class))).thenReturn(topic);
+       assertEquals(topic, topicService.createTopic(topic));
     }
     
 }
