@@ -1,0 +1,70 @@
+[{
+  "_id": {
+    "$oid": "670fa487e3313a652f2e50ff"
+  },
+  "email": "isacsson2024@test.se",
+  "password": "$2a$10$xikjJQX5nhOFxxoAivFOO.0WbUY/pg4NSGcTcKWSRwNiuTyCLbYRO",
+  "isAdmin": false,
+  "isBanned": false,
+  "_class": "com.AskABot.AskABot.model.User"
+},
+{
+  "_id": {
+    "$oid": "670faa07b4e2034b0fee26c1"
+  },
+  "email": "isacsson20242@test.se",
+  "password": "$2a$10$WWEw4Xsyq2CYqAz4BVLe9.AP3cVc0WI835UFmu.Km/MM5RwGJblge",
+  "isAdmin": false,
+  "isBanned": false,
+  "_class": "com.AskABot.AskABot.model.User"
+},
+{
+  "_id": {
+    "$oid": "671102adcd40bd52a9242ca8"
+  },
+  "email": "isacsson_89@hotmail.com",
+  "password": "$2a$10$k9xYhNsOoUPgDhccwxQPdeu/hqXcsgliGegesbmb4T/NcMRTZLx6a",
+  "isAdmin": false,
+  "isBanned": false,
+  "_class": "com.AskABot.AskABot.model.User"
+},
+{
+  "_id": {
+    "$oid": "6711030acd40bd52a9242ca9"
+  },
+  "email": "is@mail.se",
+  "password": "$2a$10$DEW2QRNj3MzgWjHoTyCs7eKfzIRvRdshwMfj235ksL30mvRYkkhEC",
+  "isAdmin": false,
+  "isBanned": false,
+  "_class": "com.AskABot.AskABot.model.User"
+},
+{
+  "_id": {
+    "$oid": "671760610b77053a43c42990"
+  },
+  "email": "mums@mail.com",
+  "password": "$2a$10$VYWKmD2O0EvjFCXO1LgsheWazwf4qYzyrePz2/19y46qerKGEfdzC",
+  "isAdmin": false,
+  "isBanned": false,
+  "_class": "com.AskABot.AskABot.model.User"
+},
+{
+  "_id": {
+    "$oid": "6721eb4315138100598158ae"
+  },
+  "email": "love@mail.se",
+  "password": "$2a$10$Xa4rp8BxNx5XkchecKoyvei94rBcDkXKlW7OzK2DRRTVk7ZFM12kq",
+  "isAdmin": false,
+  "isBanned": false,
+  "_class": "com.AskABot.AskABot.model.User"
+},
+{
+  "_id": {
+    "$oid": "6723429a5be45c7765300d5d"
+  },
+  "email": "Dennis@mail.se",
+  "password": "$2a$10$HqyBJgwqgoqtHs5xjKOUduKzRW//h4QyYh/jPbZ8AKv1zrdR/3UUa",
+  "isAdmin": false,
+  "isBanned": false,
+  "_class": "com.AskABot.AskABot.model.User"
+}]
