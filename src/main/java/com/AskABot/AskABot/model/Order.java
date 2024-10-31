@@ -14,8 +14,17 @@ public class Order {
     private int sum;
     private Date orderDate;
     private List<Item> items;
+    private boolean isSent;
 
     public Order() {
+    }
+
+    public boolean isSent() {
+        return isSent;
+    }
+
+    public void setSent(boolean isSent) {
+        this.isSent = isSent;
     }
 
     public String getOrderId() {

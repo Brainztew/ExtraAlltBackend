@@ -1,11 +1,16 @@
 package com.AskABot.AskABot.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.Collections;
 import java.util.Iterator;
 
+import com.AskABot.AskABot.model.ChatRequest;
+import com.AskABot.AskABot.model.ChatResponse;
 import com.AskABot.AskABot.model.MessageWebbsocket;
 import com.AskABot.AskABot.model.Topic;
 import com.AskABot.AskABot.model.User;
@@ -15,18 +20,17 @@ import com.AskABot.AskABot.repository.UserRepository;
 @Service
 public class TopicService {
 
+   @Value("${openai.api.url}")
+    public String apiUrl;
+
     private TopicRepository topicRepository;
     private UserRepository userRepository;
+    private final RestTemplate restTemplate;
 
-    @Autowired
-    private AiAnswerService AiAnswerService;
-
-    @Autowired
-    private SimpMessagingTemplate messagingTemplate;
-
-    public TopicService(TopicRepository topicRepository, UserRepository userRepository) {
+    public TopicService(TopicRepository topicRepository, UserRepository userRepository, RestTemplate restTemplate) {
         this.topicRepository = topicRepository;
         this.userRepository = userRepository;
+        this.restTemplate = restTemplate;
     }
 
     public Topic createTopic(Topic topic) {
@@ -133,7 +137,7 @@ public class TopicService {
         return emails;
     }
 
-    public void addAiMessageToTopic(String topicId, String content) {
+/*     public void addAiMessageToTopic(String topicId, String content) {
         Topic topic = topicRepository.findById(topicId).orElse(null);
         if (topic == null) {
             throw new IllegalArgumentException("Topic not found");
@@ -141,6 +145,22 @@ public class TopicService {
         String answer = AiAnswerService.getAiAnswer(content, topic);
         topic.getMessages().add("AI bot: " + answer);
         topicRepository.save(topic);
+    } */
+
+    public String addAiMessageToTopic2(String topicId, String prompt ) {
+        Topic topic = topicRepository.findById(topicId).orElse(null);
+        if (topic == null) {
+            throw new IllegalArgumentException("Topic not found");
+        }
+        String aiPersonality = topic.getTopicName();
+        String modifiedPrompt = "Respond in the style of " + aiPersonality + " make it short and fun, never go out of Character" + ": " + prompt;
+        ChatRequest chatRequest = new ChatRequest("gpt-4o", modifiedPrompt, 1);
+        ChatResponse chatResponse = restTemplate.postForObject(apiUrl, chatRequest, ChatResponse.class);
+        if (chatResponse == null || chatResponse.getChoices() == null || chatResponse.getChoices().isEmpty() || chatResponse.getChoices().get(0).getMessage() == null) {
+            throw new RuntimeException("Invalid response from AI service");
+        }
+        String message = chatResponse.getChoices().get(0).getMessage().getContent();
+        return message;   
     }
 
     

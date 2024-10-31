@@ -89,10 +89,14 @@ public class TopicController {
 
     @PutMapping("/addAiMessageToTopic")
     public ResponseEntity<String> addAiMessageToTopic(@RequestParam String topicId, @RequestBody String content) {
-        topicService.addAiMessageToTopic(topicId, content);
-        return new ResponseEntity<>("AI message added to topic", HttpStatus.OK);
+        String answer = topicService.addAiMessageToTopic2(topicId, content);
+        return new ResponseEntity<>(answer, HttpStatus.OK);
     
     }
+
+    
+
+    
 
     
     
