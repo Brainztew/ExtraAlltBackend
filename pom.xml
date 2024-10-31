@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.4</version>
+		<version>3.3.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.AskABot</groupId>
@@ -92,7 +92,6 @@
 	<dependency>
 		<groupId>org.glassfish.jaxb</groupId>
 		<artifactId>jaxb-runtime</artifactId>
-		<version>2.3.1</version>
 	</dependency>
 	<dependency>
 		<groupId>me.paulschwarz</groupId>
@@ -102,13 +101,11 @@
 	    <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-engine</artifactId>
-        <version>5.7.0</version>
         <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
-        <version>3.6.28</version>
         <scope>test</scope>
     </dependency>
 	<dependency>

@@ -30,6 +30,7 @@ public class StripeController {
     public Map<String, Object> createCheckoutSession(@RequestBody Map<String, Object> request) throws Exception {
         Stripe.apiKey = stripeKey;
 
+        @SuppressWarnings("unchecked")
         List<Map<String, Object>> items = (List<Map<String, Object>>) request.get("items");
 
         SessionCreateParams.LineItem[] lineItems = items.stream().map(item -> {

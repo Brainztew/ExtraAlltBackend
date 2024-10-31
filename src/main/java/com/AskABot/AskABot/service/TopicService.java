@@ -20,17 +20,12 @@ import com.AskABot.AskABot.repository.UserRepository;
 @Service
 public class TopicService {
 
+   @Value("${openai.api.url}")
+    public String apiUrl;
+
     private TopicRepository topicRepository;
     private UserRepository userRepository;
-    @Value("${openai.api.url}")
-    private String apiUrl;
-
     private final RestTemplate restTemplate;
-    @Autowired
-    private AiAnswerService AiAnswerService;
-
-    @Autowired
-    private SimpMessagingTemplate messagingTemplate;
 
     public TopicService(TopicRepository topicRepository, UserRepository userRepository, RestTemplate restTemplate) {
         this.topicRepository = topicRepository;

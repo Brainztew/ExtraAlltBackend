@@ -8,13 +8,13 @@ import static org.mockito.Mockito.when;
 
 import com.AskABot.AskABot.model.ChatRequest;
 import com.AskABot.AskABot.model.ChatResponse;
-import com.AskABot.AskABot.model.ChatResponse.Choice;
 import com.AskABot.AskABot.model.Message;
 import com.AskABot.AskABot.model.Topic;
 import com.AskABot.AskABot.repository.TopicRepository;
 import com.AskABot.AskABot.service.TopicService;
 
 import java.util.Collections;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,9 +23,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.ArrayList;
-import java.util.Optional;
 
 public class AiAnswerTest {
 
@@ -44,9 +41,10 @@ public class AiAnswerTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+        topicService.apiUrl = "http://mock-api-url";
     }
 
-/* @Test
+@Test
 public void testAddAiMessageToTopic2_Success() {
     String prompt = "Test Prompt";
     String topicId = "topicId";
@@ -56,20 +54,19 @@ public void testAddAiMessageToTopic2_Success() {
     topic.setTopicId("topicId");
     topic.setCreatedByUser("123");
 
+    Message message = new Message("assistant", "Test response");
+    ChatResponse.Choice choice = new ChatResponse.Choice();
+    choice.setMessage(message);
     ChatResponse chatResponse = new ChatResponse();
-    chatResponse.setChoices(new ArrayList<Choice>());
+    chatResponse.setChoices(Collections.singletonList(choice));
 
-    ChatRequest chatRequest = new ChatRequest("gpt-4o", prompt, 1);
-    
     when(restTemplate.postForObject(anyString(), any(ChatRequest.class), any())).thenReturn(chatResponse);
     when(topicRepository.findById(topicId)).thenReturn(Optional.of(topic));
-  
-    // Act
+
     String response = topicService.addAiMessageToTopic2(topicId, prompt);
 
-    // Assert
     assertEquals("Test response", response);
-} */
+}
 
         @Test
     public void testAddAiMessageToTopic2_TopicNotFound() {
@@ -78,7 +75,6 @@ public void testAddAiMessageToTopic2_Success() {
 
         when(topicRepository.findById(topicId)).thenReturn(Optional.empty());
 
-        // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> {
             topicService.addAiMessageToTopic2(prompt, topicId);
         });
