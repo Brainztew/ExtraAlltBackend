@@ -1,0 +1,22 @@
+[{
+  "_id": {
+    "$oid": "671dc203e3c26307b9ded8af"
+  },
+  "title": "Beanie",
+  "description": "One size cool!",
+  "productImage": "/pictures/beanie.png",
+  "price": 199,
+  "stock": 12,
+  "_class": "com.AskABot.AskABot.model.Item"
+},
+{
+  "_id": {
+    "$oid": "671dc27be3c26307b9ded8b2"
+  },
+  "title": "Cap",
+  "description": "One size cool!",
+  "productImage": "pictures/cap.png",
+  "price": 299,
+  "stock": 100,
+  "_class": "com.AskABot.AskABot.model.Item"
+}]

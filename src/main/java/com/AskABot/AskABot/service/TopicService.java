@@ -1,8 +1,6 @@
 package com.AskABot.AskABot.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -71,6 +69,10 @@ public class TopicService {
         User user = userRepository.findById(userId).orElse(null);
         if (topic.getUsersInTopic().contains(user)) {
             System.out.println("User already in topic: " + user.getEmail());
+            return;
+        }
+        if (user == null) {
+            System.out.println("null");
             return;
         }
         topic.getUsersInTopic().add(user);
